@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Bild-Upload mit Vorschau</title>
+  <style>
+    img {
+      max-width: 300px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Bild hochladen</h2>
+
+<form action="upload.php" method="POST" enctype="multipart/form-data">
+  <input type="file" name="datei" accept="image/*" onchange="showPreview(event)">
+  <br>
+  <img id="preview" style="display:none;" />
+  <br>
+  <input type="submit" name="submit" value="Bild hochladen">
+</form>
+
+<script>
+function showPreview(event) {
+  const preview = document.getElementById('preview');
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+  }
+}
+</script>
+
+</body>
+</html>
